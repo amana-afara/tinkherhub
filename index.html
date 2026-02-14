@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>EV Waiting Management</title>
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+        integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+    <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <nav>
+        <h1>⚡ EV Queue Manager</h1>
+        <div class="user-info" id="user-info" style="display: none;">
+            <span id="username-display"></span>
+            <button onclick="logout()"
+                style="background:none; border:none; color:white; text-decoration:underline; cursor:pointer; margin-left:10px;">Logout</button>
+        </div>
+    </nav>
+
+    <!-- Main Container -->
+    <div class="container">
+
+        <!-- VIEW: LOGIN -->
+        <div id="view-login" class="view-section active">
+            <div class="login-card">
+                <h2>Welcome Back</h2>
+                <p>Please enter your name to continue</p>
+                <input type="text" id="username-input" placeholder="Your Name" />
+                <button onclick="login()">Enter App</button>
+            </div>
+        </div>
+
+        <!-- VIEW: HOME DASHBOARD -->
+        <div id="view-home" class="view-section" style="display: none;">
+            <!-- Hero Slider -->
+            <div class="hero-slider">
+                <div class="slide active"
+                    style="background-image: url('https://images.unsplash.com/photo-1593941707882-a5bba14938c7?ixlib=rb-4.0.3&auto=format&fit=crop&w=1472&q=80');">
+                    <div class="slide-content">
+                        <h2>Charge Up Without the Wait</h2>
+                        <p>Join the virtual queue and save time.</p>
+                    </div>
+                </div>
+                <div class="slide"
+                    style="background-image: url('https://images.unsplash.com/photo-1617788138017-80ad40651399?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');">
+                    <div class="slide-content">
+                        <h2>Real-Time Availability</h2>
+                        <p>Find open stations near you instantly.</p>
+                    </div>
+                </div>
+                <div class="slide"
+                    style="background-image: url('https://images.unsplash.com/photo-1565514020176-db76ae429n47?ixlib=rb-4.0.3&auto=format&fit=crop&w=1470&q=80');">
+                    <div class="slide-content">
+                        <h2>Seamless Experience</h2>
+                        <p>Get notified when your slot is ready.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features List -->
+            <div class="features-grid">
+                <div class="feature-card" onclick="navigateTo('view-map')">
+                    <div class="icon">📍</div>
+                    <h3>Find Stations</h3>
+                    <p>View nearby EV chargers and check availability.</p>
+                </div>
+                <div class="feature-card" onclick="navigateTo('view-map')">
+                    <div class="icon">⏳</div>
+                    <h3>My Queue</h3>
+                    <p>Check your current position and wait time.</p>
+                </div>
+                <div class="feature-card" onclick="alert('Profile feature coming soon!')">
+                    <div class="icon">👤</div>
+                    <h3>Profile</h3>
+                    <p>Manage your vehicle and payment methods.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- VIEW: MAP & STATIONS -->
+        <div id="view-map" class="view-section" style="display: none;">
+            <button onclick="navigateTo('view-home')" class="back-btn">← Back to Home</button>
+
+            <div class="map-section">
+                <h2>Nearby Charging Stations (Kerala, India)</h2>
+                <div id="map"></div>
+            </div>
+
+            <div class="stations" id="station-list">
+                <!-- Populated by JS -->
+            </div>
+
+            <div class="queue-status" id="queue-status" style="display: none;">
+                <h2>Your Queue Status</h2>
+                <p>Station: <span id="queue-station-name"></span></p>
+                <p>Your Position: <strong id="queue-position"></strong></p>
+                <p>Estimated Wait Time: <strong id="queue-wait"></strong></p>
+                <button class="leave-btn" onclick="leaveQueue()">Leave Queue</button>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Notification Popup -->
+    <div class="notification" id="notification">
+        🎉 Your charging slot is ready!
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
